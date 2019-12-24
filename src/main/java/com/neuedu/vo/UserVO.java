@@ -15,6 +15,7 @@ public class UserVO {
      *
      * @mbg.generated
      */
+
     private Integer id;
 
     /**

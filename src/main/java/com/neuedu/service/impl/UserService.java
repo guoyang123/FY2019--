@@ -132,4 +132,22 @@ public class UserService implements IUserService {
         }
         return ServerResponse.createServerResponseBySucess();
     }
+
+    @Override
+    public ServerResponse updateUserLogic(User user) {
+
+
+       int count= userMapper.updateByPrimaryKey(user);
+       if(count==0){
+           //修改失败
+           return ServerResponse.createServerResponseByFail(ResponseCode.USERINFO_UPDATE_FAIL.getCode(),ResponseCode.USERINFO_UPDATE_FAIL.getMsg());
+       }
+
+
+       //根据id查询
+        User newuser=userMapper.selectByPrimaryKey(user.getId());
+       UserVO userVO=convert(newuser);
+
+        return ServerResponse.createServerResponseBySucess(userVO);
+    }
 }

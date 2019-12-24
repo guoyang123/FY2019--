@@ -11,6 +11,17 @@ spring:
       min-idle: 1
       test-on-borrow: true
       test-on-return: true
+  thymeleaf:
+    mode: HTML5
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 mybatis:
   mapper-locations: classpath*:com/neuedu/mapper/*Mapper.xml
   config-location: classpath:mybatis-config.xml
+
+business:
+  host: http://img.neuedu.com/
+
+

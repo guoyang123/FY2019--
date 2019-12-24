@@ -14,6 +14,12 @@ public enum ResponseCode {
     USERNAME_EXISTS(10,"用户名存在"),
     EMAIL_EXISTS(11,"邮箱存在"),
     REGISTER_FAIL(12,"注册失败"),
+    NEED_LOGIN(13,"未登录"),
+    USERINFO_UPDATE_FAIL(14,"用户信息修改失败"),
+    ILLEGAL_PARAM(15,"非法参数"),
+    CART_UPDATE_FAIL(16,"购物车商品更新失败"),
+    CART_ADD_FAIL(17,"购物车商品添加失败"),
+    PRODUCT_NOT_EXISTS(18,"商品不存在"),
     ;
 
 
