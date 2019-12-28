@@ -64,4 +64,9 @@ public interface CartMapper {
 
 
    int  findCheckByProductId(@Param("productId")Integer productId,@Param("userId") Integer userId);
+
+    List<Cart> findCartByUserIdAndChecked(@Param("userId")Integer userId);
+
+    int deleteByIds(@Param("idList") List<Integer> ids);
+
 }

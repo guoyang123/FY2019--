@@ -102,6 +102,31 @@ public class CartServiceImpl implements ICartService {
         return ServerResponse.createServerResponseBySucess(getCartVo(userId));
     }
 
+    @Override
+    public ServerResponse findCartByUserIdAndChecked(Integer userId) {
+
+
+        List<Cart> cartList=cartMapper.findCartByUserIdAndChecked(userId);
+        if(cartList==null||cartList.size()==0){
+            return ServerResponse.createServerResponseByFail(ResponseCode.CART_NOT_SELECTED.getCode(),ResponseCode.CART_NOT_SELECTED.getMsg());
+        }
+        return ServerResponse.createServerResponseBySucess(cartList);
+    }
+
+    @Override
+    public ServerResponse deleteByIds(List<Integer> ids) {
+
+        if(ids==null||ids.size()==0){
+            return  ServerResponse.createServerResponseByFail(ResponseCode.ILLEGAL_PARAM.getCode(),ResponseCode.ILLEGAL_PARAM.getMsg());
+        }
+
+       int count= cartMapper.deleteByIds(ids);
+        if(count!=ids.size()){
+            return ServerResponse.createServerResponseByFail(ResponseCode.CART_CLEAR_FAIL.getCode(),ResponseCode.CART_CLEAR_FAIL.getMsg());
+        }
+        return ServerResponse.createServerResponseBySucess();
+    }
+
 
     public CartVO getCartVo(Integer userId){
         CartVO cartVO=new CartVO();

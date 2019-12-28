@@ -51,4 +51,12 @@ public interface ProductMapper {
      * */
     public List<Product> list(@Param("categoryId")Integer categoryId,@Param("keyword")String keyword);
 
+
+    int  updateProductStock(@Param("productId") Integer productId,@Param("stock")Integer stock);
+
+
+    List<Product> findCarsouel();
+
+
+
 }

@@ -68,6 +68,36 @@ public class ProductServiceImpl implements IProductService{
         return ServerResponse.createServerResponseBySucess(product);
     }
 
+    @Override
+    public ServerResponse updateProductStock(int productId, int stock) {
+
+      int count= productMapper.updateProductStock(productId,stock);
+      if(count==0){
+          return ServerResponse.createServerResponseByFail(ResponseCode.PRODUCT_STOCK_UPDATE_FAIL.getCode(),ResponseCode.PRODUCT_STOCK_UPDATE_FAIL.getMsg());
+      }
+        return ServerResponse.createServerResponseBySucess();
+    }
+
+    @Override
+    public ServerResponse getCarsouel() {
+
+
+
+        List<Product> productList=productMapper.findCarsouel();
+
+        if(productList==null){
+            return ServerResponse.createServerResponseByFail(ResponseCode.CARSOUEL_EMPTY.getCode(),ResponseCode.CARSOUEL_EMPTY.getMsg());
+        }
+        List<ProductListVO> productListVOList=new ArrayList<>();
+        for(Product product:productList){
+            productListVOList.add(product2ProductListVO(product));
+        }
+
+
+
+        return ServerResponse.createServerResponseBySucess(productListVOList);
+    }
+
 
     private ProductListVO product2ProductListVO(Product product){
 

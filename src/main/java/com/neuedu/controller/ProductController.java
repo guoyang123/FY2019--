@@ -27,4 +27,15 @@ public class ProductController {
 
     }
 
+    /**
+     * 获取轮播图
+     * */
+    @RequestMapping("carsouel.do")
+    public  ServerResponse getCarsouel(){
+
+        return productService.getCarsouel();
+
+    }
+
+
 }
