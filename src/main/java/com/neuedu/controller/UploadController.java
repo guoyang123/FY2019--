@@ -19,6 +19,8 @@ public class UploadController {
     @Value("${business.host}")
     String imageHost;
 
+    @Value("${upload.path}")
+    String  uploadPath;
     @GetMapping(value = "/upload")
     public  String  upload(){
         return "upload";
@@ -36,7 +38,7 @@ public class UploadController {
              String extend=originalFilename.substring(originalFilename.lastIndexOf("."));
              //重新生成唯一的文件名
             String newName= UUID.randomUUID().toString();
-             File file1=new File("D:"+File.separator+"upload",newName+extend);
+             File file1=new File(uploadPath,newName+extend);
              try {
                  file.transferTo(file1);
                   return imageHost+newName+extend;

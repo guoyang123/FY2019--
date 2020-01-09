@@ -32,5 +32,23 @@ alipay:
   notify_url: http://gy8tbq.natappfree.cc/portal/pay/callback.do
   publickey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv13O9pnPMfcP9ZgjiPRjxIcEpd/dEXU0qZU3++jrd5ItZIhTvmH9PuIylN4jxeY4qcaf/OVaQ074qd2xl0LDEDh9TA8ZNBwXEVROkDAhOsi6V7emjRCJrlkY0a9XvmPjoxKZ3K2y/laxtktoSw1xY3sXQl9v/rQnlsqSds7Ye9mGLAOvNUAQ/zyaCckjdRYcL3OARaHF/05grc1Q4Y3RvP8MD9F11TuSYRtgi34/m1tVqESRr7OKt3TFL6Zt1bxtri26bc3dzWKIE7C41L2gKZApmNEDzQAzsMJx5hH7YfVUxTc1CgvfTXvYaob7j3hZp3fKan+wBsw9IX1MwxIxxwIDAQAB
 
+upload:
+  path: D:\\upload
+
+
+redis:
+ maxTotal: 8
+ maxIdle: 8
+ minIdle: 1
+ blockWhenExhausted: true
+ maxWaitMillis: 5000
+ testOnBorrow: true
+ testOnReturn: true
+ jmxEnabled: true
+ host: 47.94.155.74
+ port: 6379
+ timeout: 5000
+ password: Qinfo20180507
+
 
 

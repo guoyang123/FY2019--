@@ -1,0 +1,39 @@
+spring:
+  datasource: #数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://47.94.155.74:3306/business?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: fy2019
+      password: Qinfo20180507@
+      max-active: 20
+      max-wait: 6000
+      min-idle: 1
+      test-on-borrow: true
+      test-on-return: true
+  thymeleaf:
+    mode: HTML5
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+mybatis:
+  mapper-locations: classpath*:com/neuedu/mapper/*Mapper.xml
+  config-location: classpath:mybatis-config.xml
+
+business:
+  host: http://img.neuedu.com/
+
+alipay:
+  appid: 2016092100564475
+  pid: 2088102176656004
+  target_id: ""
+  rsa2_private: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCJGmhBLbkgn2CaVsftvupMgbewu9Rkjcq8Du878CRSsBUI+cRaD5fS9fQvd81gIKHADZQDfdbFSZiYUI3aRlp193Df/ZBHYNNmnQA9ImeD4DiD/nKMLq2LJsSJLXHvm29xdgSIe/C1RUI6DqPdOvzdj5sF85hfQknTFPzVlxnJmV9B9Snur1ey2NWjWNyOgT/PLUCPcKy0iG1d/rE/eclUOw0OC4ct3Kb/ajOkF1chd45fqEE0ofv4gTaiOsnxv2zapAJ9G3eeLTYoxFRVLBgLgxFyC8FV20s9XQTROF6ITc4TozWYwlqe6yCXR7zP6yJpDFi3IWraLuaXUUI21jFHAgMBAAECggEANc5fS/UdymfCCdA09mEOoqfl5z5PxIbBIbzatrMwDiN8neEn5hBojSppgpeJykgEMtMhW51vRE31zREQGrGxnspVShLBJMIjNQo4pcVyypacl3Csk8dd5FZ6mztyk4501hpy/P1nIjzkGNTWCmS0CF/rfxJyoi/puSVrdIewXyV21KmNqV4xTrkXFzzutWu/7Vf4zMLm+iRHM5YQUK/pTrTW+9GTePKECdaaVnhq2RN/dzUtMoqJQAnbIeNC/DSuYMDZDSvdBcd1jCvpqaFoAF8ejOgIoAz4QUM3eXId5mRBXPq+VvH8Sr2OIAdLEDyon7GQ/7WeRfwTQrnVIKHIAQKBgQDBeeOVKDO5yhp2R2dwzfS7phgGdjCDyryFdh4Qz15PO0O8dRvlA2oq5XJP8+z6JpybOZ33xtP3X95i5v3qH+ykxiWyu/PJBmIOuf3eqX7tZ9EFiEkjCMUEsad0Ka57dn3IBgb8Ifrzb0pjfo/JcZCRUNps2i72LtdtLeisy5ZegQKBgQC1aNTNhSaMgGii4R5Z0A04L4if5OYk9hszZK4GX2IqZ6fezeHddm5fymUYgoMN5Ur6r6srLG8QrIMGQdKu7yEbyxXSwp52mVdsWnS0XH80p5sf8GIio9MRSwSMJiEazaFxxp83naIvZnjqqsebOfeVCFPV35aqim62f1W2ras7xwKBgCn5UaBoamBiMj962jwk0nVrYUb1mSzebOvfZkJrWqCB0P4vwe97QCsyQAyMdNsISW17oIPCxPWj/NEkH+4NIv/UZRVTpV31XoynWSZXS0wh+7zhhkxteKC+EgAnks0CNeOROy60CIeLm23eZT9kveJo0hpPc2TBYMc08IecW3EBAoGASlrzjmGbEU+4k7pN5GYgZP0mtNLvegrdz0ze/4GtDNB7wBkHEOzwBJdCpK8p5FItT18de46031K2SaRFJKqjGW8+PKrEpLvpV2IkH6EiCoUAUjEHKEeZxabH8GHYg9Hw8F+G9xbHWUJZIWZqdjdmQVGueyUv7irbgjXi/gNlAhUCgYBKEDZrh5LSD+Hl8jCDxDtnOS8y4oxGL6dXhHUiRTbLV8roidGoJqed7vyeysGlmLR7Dq7SP9kEUrhdgYQxMlg2wjmhmzEpiHrMbLb0Ucg7EYeAhPYa6eEQ7VTcZOYdqFl62EW5ewmDuh2+zQluA73gF6fkkavjitIKHeoj6lt1oQ==
+  notify_url: http://47.94.155.74:8080/portal/pay/callback.do
+  publickey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv13O9pnPMfcP9ZgjiPRjxIcEpd/dEXU0qZU3++jrd5ItZIhTvmH9PuIylN4jxeY4qcaf/OVaQ074qd2xl0LDEDh9TA8ZNBwXEVROkDAhOsi6V7emjRCJrlkY0a9XvmPjoxKZ3K2y/laxtktoSw1xY3sXQl9v/rQnlsqSds7Ye9mGLAOvNUAQ/zyaCckjdRYcL3OARaHF/05grc1Q4Y3RvP8MD9F11TuSYRtgi34/m1tVqESRr7OKt3TFL6Zt1bxtri26bc3dzWKIE7C41L2gKZApmNEDzQAzsMJx5hH7YfVUxTc1CgvfTXvYaob7j3hZp3fKan+wBsw9IX1MwxIxxwIDAQAB
+
+
+upload:
+  path: /upload
+
+
