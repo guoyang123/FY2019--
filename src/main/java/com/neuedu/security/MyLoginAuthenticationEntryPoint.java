@@ -1,4 +1,4 @@
-package security;
+package com.neuedu.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.neuedu.common.ResponseCode;

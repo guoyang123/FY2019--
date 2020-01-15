@@ -1,4 +1,4 @@
-package security;
+package com.neuedu.security;
 
 import com.neuedu.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

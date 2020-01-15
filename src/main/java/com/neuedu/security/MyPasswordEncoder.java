@@ -1,4 +1,4 @@
-package security;
+package com.neuedu.security;
 
 import com.neuedu.utils.MD5Utils;
 import org.springframework.security.crypto.password.PasswordEncoder;
