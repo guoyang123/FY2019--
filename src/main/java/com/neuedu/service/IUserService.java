@@ -3,8 +3,9 @@ package com.neuedu.service;
 import com.neuedu.pojo.User;
 import com.neuedu.utils.ServerResponse;
 import org.apache.catalina.Server;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface IUserService {
+public interface IUserService extends UserDetailsService {
 
     /**
      * 登录

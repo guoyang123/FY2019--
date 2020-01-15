@@ -53,6 +53,8 @@ public interface UserMapper {
 
     Integer findByUsername(@Param("username") String username);
 
+    User findUserByUsername(@Param("username") String username);
+
     /**
      * 根据用户名和密码查询
      * */

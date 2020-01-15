@@ -11,10 +11,41 @@ import com.neuedu.utils.ServerResponse;
 import com.neuedu.vo.UserVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class UserService implements IUserService {
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User user=userMapper.findUserByUsername(username);
+        if(user!=null){
+            //创建角色集合对象
+            Collection<GrantedAuthority> authorities = new ArrayList<>();
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+            authorities.add(grantedAuthority);
+            org.springframework.security.core.userdetails.User user1 =
+                    new org.springframework.security.core.userdetails.User
+                            (user.getUsername(),user.getPassword(), authorities);
+
+            return user1;
+        }
+
+
+
+        return null;
+    }
 
     @Autowired
     UserMapper userMapper;
@@ -52,6 +83,7 @@ public class UserService implements IUserService {
 
         return ServerResponse.createServerResponseBySucess(convert(user));
     }
+
 
      private UserVO convert(User user){
         UserVO userVO=new UserVO();
@@ -150,4 +182,8 @@ public class UserService implements IUserService {
 
         return ServerResponse.createServerResponseBySucess(userVO);
     }
+
+
+
+
 }

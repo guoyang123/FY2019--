@@ -4,13 +4,23 @@ import com.neuedu.common.Const;
 import com.neuedu.common.ResponseCode;
 import com.neuedu.pojo.User;
 import com.neuedu.service.IUserService;
+import com.neuedu.utils.MD5Utils;
 import com.neuedu.utils.ServerResponse;
 import com.neuedu.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -20,13 +30,30 @@ public class UserController
 
     @Autowired
     IUserService userService;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @RequestMapping(value = "user/login.do")
-   public ServerResponse login(String username, String password, HttpSession session){
+   public ServerResponse login(String username, String password, HttpSession session, HttpServletRequest request){
 
        ServerResponse serverResponse= userService.loginLogic(username, password);
        if(serverResponse.isSucess()){
-           session.setAttribute(Const.CURRENT_USER,serverResponse.getData());
+         //  session.setAttribute(Const.CURRENT_USER,serverResponse.getData());
+
+           //调用springsecurity认证机制
+           UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=
+                   new UsernamePasswordAuthenticationToken(username, MD5Utils.getMD5Code(password));
+           usernamePasswordAuthenticationToken.setDetails(serverResponse.getData());
+
+           //usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetails(request));
+           Authentication authentication=authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+           SecurityContextHolder.getContext().setAuthentication(authentication);
+           session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                   SecurityContextHolder.getContext());
+
+
+
        }
        return serverResponse;
 

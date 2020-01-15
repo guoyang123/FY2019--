@@ -5,6 +5,9 @@ import com.neuedu.common.Const;
 import com.neuedu.common.ResponseCode;
 import com.neuedu.utils.ServerResponse;
 import com.neuedu.vo.UserVO;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -20,41 +23,56 @@ import java.io.PrintWriter;
 public class PortalLoginCheckInterceptor implements HandlerInterceptor {
 
 
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        SecurityContext securityContext= SecurityContextHolder.getContext();
+        Authentication authentication=securityContext.getAuthentication();
+        UserVO userVO1=(UserVO)authentication.getDetails();
+        HttpSession session=request.getSession();
+        if(userVO1!=null){
+           session.setAttribute(Const.CURRENT_USER,userVO1);
+           return true;
+        }
+        return false;
+    }
+
     /**在请求到达controller之前
 
      @return  true:不拦截请求 false:拦截请求
 */
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+//    @Override
+//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+//
+//        System.out.println("=======preHandle======");
+//
+//       HttpSession session= request.getSession();
+//       UserVO userVO=(UserVO)session.getAttribute(Const.CURRENT_USER);
+//       if(userVO!=null){
+//           //已经登录
+//           return true;
+//       }
+//
+//       //用户未登录，重写Response
+//        try {
+//            response.reset();
+//            response.addHeader("Content-Type","application/json;charset=utf-8");
+//            PrintWriter printWriter=response.getWriter();
+//            ServerResponse serverResponse=ServerResponse.createServerResponseByFail(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getMsg());
+//            ObjectMapper objectMapper=new ObjectMapper();
+//            String info=objectMapper.writeValueAsString(serverResponse);
+//            printWriter.write(info);
+//            printWriter.flush();
+//            printWriter.close();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        return false;
+//    }
 
-        System.out.println("=======preHandle======");
 
-       HttpSession session= request.getSession();
-       UserVO userVO=(UserVO)session.getAttribute(Const.CURRENT_USER);
-       if(userVO!=null){
-           //已经登录
-           return true;
-       }
-
-       //用户未登录，重写Response
-        try {
-            response.reset();
-            response.addHeader("Content-Type","application/json;charset=utf-8");
-            PrintWriter printWriter=response.getWriter();
-            ServerResponse serverResponse=ServerResponse.createServerResponseByFail(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getMsg());
-            ObjectMapper objectMapper=new ObjectMapper();
-            String info=objectMapper.writeValueAsString(serverResponse);
-            printWriter.write(info);
-            printWriter.flush();
-            printWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return false;
-    }
 
     //在请求处理完成后
     @Override

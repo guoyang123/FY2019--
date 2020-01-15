@@ -3,6 +3,9 @@ package com.neuedu.controller;
 import com.neuedu.service.IProductService;
 import com.neuedu.utils.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +24,7 @@ public class ProductController {
                                @RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize,
                                String orderby){
 
-
+            
 
             return productService.list(categoryId, keyword, pageNum, pageSize, orderby);
 
